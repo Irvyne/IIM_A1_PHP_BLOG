@@ -1,0 +1,4 @@
+AuthName "Secured Area"
+AuthType Basic
+AuthUserFile "c:\wamp\www\IIM_A1_PHP_BLOGNEWS\admin\.htpasswd"
+Require valid-user

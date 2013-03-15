@@ -1,0 +1,60 @@
+body {
+  font-family: 'Arial';
+}
+nav > ul {
+  padding: 0;
+  height: 40px;
+}
+nav > ul > li {
+  display: inline-block;
+  float: left;
+  text-align: center;
+  width: 25%;
+  height: 40px;
+  background-color: lightblue;
+}
+nav > ul > li:hover {
+  background-color: dodgerblue;
+}
+nav > ul > li > a {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table td,
+table th {
+  border: 1px solid black;
+}
+table > tbody > tr:hover {
+  background-color: khaki;
+}
+table tr > td {
+  text-align: center;
+}
+article {
+  width: 100%;
+}
+article > h1 {
+  text-align: center;
+}
+article > p {
+  width: 70%;
+  margin: 0 15%;
+}
+article > small {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+button.add {
+  float: right;
+  margin-bottom: 15px;
+}
+div.error {
+  color: red;
+}

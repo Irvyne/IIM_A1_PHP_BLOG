@@ -1,0 +1,99 @@
+@fontGeneral: 'Arial';
+@NavHeight: 40px;
+
+body
+{
+  font-family: @fontGeneral;
+}
+nav
+{
+  & > ul
+  {
+    padding: 0;
+    height: @NavHeight;
+    & > li
+    {
+      display: inline-block;
+      float: left;
+      text-align: center;
+      width: 25%;
+      height: @NavHeight;
+      background-color: lightblue;
+
+      &:hover
+      {
+        background-color: dodgerblue;
+      }
+
+      & > a
+      {
+        display: inline-block;
+        width: 100%;
+        height: @NavHeight;
+        line-height: @NavHeight;
+      }
+    }
+  }
+}
+table
+{
+  width: 100%;
+  border-collapse: collapse;
+
+  td, th
+  {
+    border: 1px solid black;
+  }
+  & > tbody
+  {
+    & > tr
+    {
+      &:hover
+      {
+        background-color: khaki;
+      }
+    }
+  }
+  tr
+  {
+    & > td
+    {
+      text-align: center;
+    }
+  }
+}
+article
+{
+  width: 100%;
+
+  & > h1
+  {
+    text-align: center;
+  }
+  & > p
+  {
+    width: 70%;
+    margin: 0 15%;
+  }
+  & > small
+  {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+  }
+}
+button
+{
+  &.add
+  {
+    float: right;
+    margin-bottom: 15px;
+  }
+}
+div
+{
+  &.error
+  {
+    color: red;
+  }
+}
