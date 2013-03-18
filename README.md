@@ -23,6 +23,7 @@ Requirements
 
  * A local server (WAMP, MAMP or LAMP)
  * PHP 5.3.3 and up
+ * "short open tag" must be active on PHP
  * A MySQL server
 
 Installation
