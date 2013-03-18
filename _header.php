@@ -9,16 +9,13 @@ header('Content-Type: text/html; charset=utf-8');
 /** php.net - session_start()
  * Démarre une nouvelle session ou reprend une session existante
  */
-session_start();
+//TODO démarrer la session
 
 /** php.net - require()
  * L'instruction de langage require inclut et exécute le fichier spécifié en argument.
  */
 // On récupère les informations de connection à notre base de donnée dans le tableau (array) $database
-require('config/config.php');
-include('functions/database.fn.php');
-include('functions/user.fn.php');
-include('functions/article.fn.php');
+//TODO on fait des require/include sur 4 fichiers (les 3 fichiers de fonctions et le fichier de configuration)
 
 /**** WARNING ****
 MySQLi (MySQL Improved) = MySQL Amélioré
@@ -26,7 +23,7 @@ MySQLi est une extension PHP qui permet de se connecter à une base de donnée
 Les fonctions commencant par "mysql_" vont être obsolètes, il vous faut donc utiliser les fonctions de MySQLi qui commencent par "mysqli_"
 Ne jamais utiliser de fonctions "mysql_" : attention aux sites web qui vous mettent du code obsolète !!
  **** WARNING ****/
-$link = database_connect($database);
+//TODO lance la fonction (obligatoire) pour se connecter à la BDD
 
 include('templates/_header.phtml');
 include('templates/_navbar.phtml');

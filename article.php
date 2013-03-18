@@ -2,38 +2,18 @@
 
 include('_header.php');
 
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = $_GET['id'];
-} else {
-    header('Location: index.php');
-}
+//TODO récupère la variable 'id' en GET, si elle n'existe pas, rediriger vers 'index.php'
 
+//TODO récupère l'article en BDD associé à l'id récupéré
 
-/*
-$article = array(
-    'title'     => 'efzefzef',
-    'content'   => 'testContent',
-    'enabled'   => false,
-);
-addArticle($link, $article);
-if (mysqli_error($link))
-    var_dump('Error : '.mysqli_error($link));
-*/
-
-$article = getOneArticle($link, $id);
-$article = mysqli_fetch_array($article);
-
-if (!$article) {
-    header('Location: index.php');
-    die('Aucun article sélectionné');
-}
+//TODO si l'id ne correspondait à aucun article, redirigé vers 'index.php'
 
 ?>
 
 <article class="span12">
-    <h1 class="text-center"><?= $article['title']; ?></h1>
-    <p><?= $article['content']; ?></p>
-    <small class="badge badge-info pull-right"><?= $article['date']; ?></small>
+    <h1 class="text-center"><?php //TODO afficher le titre de l'article ?></h1>
+    <p><?php //TODO afficher le contenu de l'article ?></p>
+    <small class="badge badge-info pull-right"><?php //TODO afficher la date de l'article ?></small>
 </article>
 
 <?php

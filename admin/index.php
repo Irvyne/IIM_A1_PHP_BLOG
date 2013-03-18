@@ -5,21 +5,14 @@ include('../_header.php');
 /**
  * Empêche l'accès aux personnes non identifiées
  */
-if (!isConnected()) {
-    header('Location: ../login.php');
-    die('Forbidden Area');
-}
+//TODO si on est n'est pas connecté, rediriger ver '../login.php'
 
-$articles = getAllArticles($link, false);
-
-if (!$articles) {
-    var_dump(mysqli_error($link));
-}
+//TODO récupérer tous les articles (y compris ceux désactivés)
 
 ?>
 
 <p class="text-center" style="margin: 20px 0;">
-    <a class="btn btn-primary" href="<?=WEBDIR;?>admin/add.php">Ajouter un article +</a>
+    <a class="btn btn-primary" href="add.php">Ajouter un article +</a>
 </p>
 
 <table class="table">
@@ -38,26 +31,13 @@ if (!$articles) {
     <tbody>
 
 <?php
-while ($article = mysqli_fetch_assoc($articles))
-{
+//TODO effectuer une boucle pour afficher les articles un par un
 ?>
         <tr>
-            <td><a href="../article.php?id=<?= $article['id']; ?>" target="_blank"><?=$article['id'];?></a></td>
-            <td><?=getExcerpt($article['title'], 30);?></td>
-            <td><?=getExcerpt($article['content'], 100);?></td>
-            <td><?=$article['date'];?></td>
-            <?php if ($article['enabled'] == true) { ?>
-            <td><span class="label label-success">enabled</span></td>
-            <td><a href="<?=WEBDIR;?>admin/activate.php?id=<?=$article['id'];?>">Désactiver</a></td>
-            <?php } else { ?>
-            <td><span class="label label-important">disabled</span></td>
-            <td><a href="<?=WEBDIR;?>admin/activate.php?id=<?=$article['id'];?>">Activer</a></td>
-            <?php } ?>
-            <td><a href="<?=WEBDIR;?>admin/edit.php?id=<?=$article['id'];?>">Editer</a></td>
-            <td><a href="<?=WEBDIR;?>admin/delete.php?id=<?=$article['id'];?>">Supprimer</a></td>
+            <?php //TODO on innove ici en créant les td et leur contenu (pour connaitre le contenu, s'aider des <th> ci-dessus) ?>
         </tr>
 <?php
-}
+//TODO ferme la boucle
 ?>
 
     </tbody>

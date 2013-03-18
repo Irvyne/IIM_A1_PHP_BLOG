@@ -2,26 +2,18 @@
 
 include('_header.php');
 
-if (isConnected()) {
-    header('Location: index.php');
-}
+//TODO si on est connecté, rediriger ver 'index.php'
+
 /**
- * Process
+ * Process du formulaire de connexion
  */
 if (isset($_POST['login_submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    //TODO récupérer en POST 'username' et 'password'
 
-    if (empty($username) || empty($password)) {
-        $missing_credential = true;
-    } else {
-        $connection = connection($link, $username, $password);
-        if ($connection) {
-            header('Location: index.php');
-        } else {
-            $credential_error = true;
-        }
-    }
+    //TODO tester si une des variable récupérée du POST est vide, si c'est le cas, créez la variable $missing_credential
+    //TODO si aucune variable récupérée du POST n'est vide, lancez la tentative de login avec les informations récupérées
+        //TODO si la connexion réussie, redirigez vers 'index.php'
+        //TODO si la connexion échoue, créez la variable $credential_error
 }
 
 ?>
@@ -52,7 +44,7 @@ if (isset($credential_error)) {
 
 <form id="login_form" method="post">
     <label for="username">Username* :</label>
-    <input id="username" name="username" type="text" placeholder="please enter your username" value="<?php if (isset($_POST['username'])) { echo $_POST['username']; }?>" required="required" autocomplete="off" autofocus>
+    <input id="username" name="username" type="text" placeholder="please enter your username" value="<?php //TODO si le champ à déjà été envoyé en POST, afficher son contenu ici ?>" required="required" autocomplete="off" autofocus>
     <br>
     <label for="password">Password* :</label>
     <input id="password" name="password" type="password" placeholder="please enter your password" required="required">

@@ -5,14 +5,8 @@ include('../_header.php');
 /**
  * Empêche l'accès aux personnes non identifiées
  */
-if (!isConnected()) {
-    header('Location: ../login.php');
-    die('Forbidden Area');
-}
+//TODO si on est n'est pas connecté, rediriger ver '../login.php'
 
-if (isset($_GET['id']) && !is_null($_GET['id'])) {
-    $id = $_GET['id'];
-    removeArticle($link, $id);
-}
+//TODO récupérer en GET l'id, le tester puis supprimer l'article
 
-header('Location: index.php');
+//TODO rediriger ver 'index.php'

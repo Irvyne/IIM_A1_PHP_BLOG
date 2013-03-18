@@ -1,9 +1,9 @@
 <?php
 
-session_start();
+//TODO démarrer la session
 
-session_unset();
+//TODO faire un unset de la session
 
-session_destroy();
+//TODO détruire la session
 
-header('Location: index.php');
+//TODO redirection php vers 'index.php'

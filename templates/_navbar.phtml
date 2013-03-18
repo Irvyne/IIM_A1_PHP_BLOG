@@ -1,16 +1,16 @@
 <div class="masthead">
     <ul class="nav nav-pills pull-right">
         <?php
-        if (isConnected()) {
+        //TODO SI on est connecté, on affiche
         ?>
         <li class="active"><a href="<?=WEBDIR?>admin/index.php">Administration</a></li>
         <li><a href="<?=WEBDIR?>logout.php">Logout</a></li>
         <?php
-        } else {
+        //TODO SINON
         ?>
         <li><a href="<?=WEBDIR?>login.php">Login</a></li>
         <?php
-        }
+        //TODO fin
         ?>
     </ul>
     <h3 class="muted clearfix">My First Blog</h3>

@@ -5,28 +5,20 @@ include('../_header.php');
 /**
  * Empêche l'accès aux personnes non identifiées
  */
-if (!isConnected()) {
-    header('Location: ../login.php');
-    die('Forbidden Area');
-}
+//TODO si on est n'est pas connecté, rediriger ver '../login.php'
 
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = $_GET['id'];
-} else {
-    header('Location: index.php');
-}
+//TODO récupérer en GET l'id, s'il n'existe pas, rediriger vers 'index.php'
 
-$article = getOneArticle($link, $id);
-$article = mysqli_fetch_array($article);
+//TODO récupérer l'article en BDD en utilisant l'id précédement récupéré
 
 ?>
 
 <form id="article_form" method="post">
     <label for="title">Titre :</label>
-        <input id="title" name="title" type="text" value="<?=$article['title'];?>" placeholder="Titre de l'article" required="required">
+        <input id="title" name="title" type="text" value="<?php //TODO afficher le titre de l'article ?>" placeholder="Titre de l'article" required="required">
     <br>
     <label for="content">Contenu :</label>
-        <textarea id="content" name="content" placeholder="Contenu de l'article" required="required"><?=$article['content'];?></textarea>
+        <textarea id="content" name="content" placeholder="Contenu de l'article" required="required"><?php //TODO afficher le contenu de l'article ?></textarea>
     <br>
     <input class="btn btn-primary" name="article_submit" type="submit" value="Add">
 </form>

@@ -5,32 +5,10 @@ include('../_header.php');
 /**
  * Empêche l'accès aux personnes non identifiées
  */
-if (!isConnected()) {
-    header('Location: ../login.php');
-    die('Forbidden Area');
-}
+//TODO si on est n'est pas connecté, rediriger ver '../login.php'
 
 if (isset($_POST['article_submit'])) {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    if (isset($_POST['enabled'])) {
-        $enabled = true;
-    } else {
-        $enabled = false;
-    }
-
-    if (empty($title) || empty($content)) {
-        $missing_field = true;
-    } else {
-        $article = array(
-            'title'     => $title,
-            'content'   => $content,
-            'enabled'   => $enabled,
-        );
-        addArticle($link, $article);
-
-        header('Location: index.php');
-    }
+    //TODO effectuer le process d'ajout d'article
 }
 
 if (isset($missing_field)) {

@@ -2,28 +2,16 @@
 
 include('_header.php');
 
-/*
-$article = array(
-    'title'     => 'efzefzef',
-    'content'   => 'testContent',
-    'enabled'   => false,
-);
-addArticle($link, $article);
-if (mysqli_error($link))
-    var_dump('Error : '.mysqli_error($link));
-*/
+//TODO récupérer tous les articles (activés)
 
-$articles = getAllArticles($link, true);
-
-while($article = mysqli_fetch_array($articles))
-{
+//TODO effectuer une boucle pour afficher les articles un par un
 ?>
 <article class="span4">
-    <h2><a href="article.php?id=<?= $article['id']; ?>"><?= $article['title']; ?></a></h2>
-    <p><?= getExcerpt($article['content']); ?></p>
-    <small class="badge badge-info pull-right"><?= $article['date']; ?></small>
+    <h2><?php //TODO créer un lien (contenant le titre de l'article courant) vers la page 'article.php' en passant en GET l'id de l'article courant ?></h2>
+    <p><?php //TODO afficher un résumé du contenu de l'article courant ?></p>
+    <small class="badge badge-info pull-right"><?php //TODO afficher la date de l'article courant ?></small>
 </article>
 <?php
-}
+//TODO fermer la boucle ici
 
 include('_footer.php');

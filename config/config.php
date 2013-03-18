@@ -4,6 +4,7 @@
  * Create the constant WEBDIR, for WAMP, MAMP and LAMP users
  * It must be the name of the directory inside 'www' which hosting the project
  */
+//TODO ne pas oublier de modifier cette constante (DEMANDER DE l'AIDE AU PROF)
 define('WEBDIR', '/IIM_A1_PHP_BLOG/');
 
 /**** WARNING ****
@@ -16,6 +17,7 @@ Ne jamais utiliser de fonctions "mysql_" : attention aux sites web qui vous mett
 /**
  * Stocke les informations de connexion à la base de donnée sous forme de tableau (array)
  */
+//TODO Modifier les valeurs de l'array ci-dessous pour correspondre aux votres
 $database = array(
 	'host'      => 'localhost',
 	'username'  => 'root',
