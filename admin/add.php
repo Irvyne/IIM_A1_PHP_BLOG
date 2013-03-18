@@ -1,48 +1,63 @@
 <?php
 
-/** php.net - header()
- * Permet de spécifier l'en-tête HTTP 'string' lors de l'envoi des fichiers HTML
+include('../_header.php');
+
+/**
+ * Empêche l'accès aux personnes non identifiées
  */
-// Header PHP pour forcer l'encodage des caractères en "utf-8" : résoud les problèmes de caractères qui ne sont pas affichés correctement 
-header('Content-Type: text/html; charset=utf-8');
+if (!isConnected()) {
+    header('Location: ../login.php');
+    die('Forbidden Area');
+}
 
-/** php.net - require()
- * L'instruction de langage require inclut et exécute le fichier spécifié en argument.
- */
-// On récupère les informations de connection à notre base de donnée dans le tableau (array) $database
-require('../config/config.php');
-include('../functions/database.fn.php');
-include('../functions/article.fn.php');
-
-/**** WARNING ****
-MySQLi (MySQL Improved) = MySQL Amélioré
-MySQLi est une extension PHP qui permet de se connecter à une base de donnée
-Les fonctions commencant par "mysql_" vont être obsolètes, il vous faut donc utiliser les fonctions de MySQLi qui commencent par "mysqli_"
-Ne jamais utiliser de fonctions "mysql_" : attention aux sites web qui vous mettent du code obsolète !!
- **** WARNING ****/
-$link = database_connect($database);
-
-include('../templates/_header.phtml');
-include('../templates/_navbar.phtml');
-
-include('../templates/form/article.form.phtml');
-
-//TODO Finir la page add
 if (isset($_POST['article_submit'])) {
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $enabled = $_POST['enabled'];
+    if (isset($_POST['enabled'])) {
+        $enabled = true;
+    } else {
+        $enabled = false;
+    }
 
-    if (true) { //TODO Modifier le if
-        header('Location: '.WEBDIR.'admin/index.php');
+    if (empty($title) || empty($content)) {
+        $missing_field = true;
+    } else {
+        $article = array(
+            'title'     => $title,
+            'content'   => $content,
+            'enabled'   => $enabled,
+        );
+        addArticle($link, $article);
+
+        header('Location: index.php');
     }
 }
 
-include('../templates/_footer.phtml');
+if (isset($missing_field)) {
+?>
+    <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong> At least one field is empty, all fields are required.
+    </div>
+<?php
+}
 
-/** php.net - mysqli_close()
- * mysqli_close($link) ferme la connexion non persistante au serveur MySQL associée à l'identifiant spécifié. Si $link n'est pas spécifié, cette commande s'applique à la dernière connexion ouverte.
- * L'utilisation de mysqli_close() n'est pas habituellement nécessaire, puisque les connexions non persistantes ouverts sont automatiquement fermées à la fin l'exécution du script.
- */
-// Ferme la connexion à la base de donnée (libère de la ram (mémoire vive) sur le serveur). Non obligatoire 90% du temps, mais il faut prendre l'habitude de l'écrire.
-database_disconnect($link);
+?>
+
+<form id="article_form" method="post">
+    <label for="title">Titre :</label>
+    <input id="title" name="title" type="text" placeholder="Titre de l'article" required="required">
+    <br>
+    <label for="content">Contenu :</label>
+    <textarea id="content" name="content" placeholder="Contenu de l'article" required="required"></textarea>
+    <br>
+    <label for="enabled">Activer :
+        <input id="enabled" name="enabled" type="checkbox">
+    </label>
+    <br>
+    <input class="btn btn-primary" name="article_submit" type="submit" value="Add">
+</form>
+
+<?php
+
+include('../_footer.php');

@@ -1,56 +1,78 @@
 <?php
 
-/** php.net - header()
- * Permet de spécifier l'en-tête HTTP 'string' lors de l'envoi des fichiers HTML
- */
-// Header PHP pour forcer l'encodage des caractères en "utf-8" : résoud les problèmes de caractères qui ne sont pas affichés correctement 
-header('Content-Type: text/html; charset=utf-8');
-
-/** php.net - require()
- * L'instruction de langage require inclut et exécute le fichier spécifié en argument.
- */
-// On récupère les informations de connection à notre base de donnée dans le tableau (array) $database
-require('config/config.php');
-include('functions/database.fn.php');
-include('functions/article.fn.php');
-
-/**** WARNING ****
-MySQLi (MySQL Improved) = MySQL Amélioré
-MySQLi est une extension PHP qui permet de se connecter à une base de donnée
-Les fonctions commencant par "mysql_" vont être obsolètes, il vous faut donc utiliser les fonctions de MySQLi qui commencent par "mysqli_"
-Ne jamais utiliser de fonctions "mysql_" : attention aux sites web qui vous mettent du code obsolète !!
- **** WARNING ****/
-$link = database_connect($database);
+include('_header.php');
 
 /**
  * Process du formulaire de contact
  */
-if (isset($_POST['article_submit'])) {
+if (isset($_POST['contact_submit'])) {
     // Récupération des valeurs des champs du formulaire
     $name = $_POST['name'];
     $email = $_POST['email'];
     $message = $_POST['message'];
 
-    // Test de validité des champs
-    if ($name) {
-        //TODO validité des champs
+    // Test si les champs sont remplis
+    if (empty($name) || empty($email) || empty($message)) {
+        $missing_credential = true;
+    } else {
+        if (@mail('webmaster@contact.fr', 'Blog A1 - Send by '.$email, $message)) {
+            $send_successfully = true;
+        } else {
+            $send_error = true;
+        }
     }
-    // Envoi du message
-    mail('webmaster@contact.fr', 'Formulaire de contact du blog : send by '.$email, $message);
 }
 
-include('templates/_header.phtml');
-include('templates/_navbar.phtml');
+?>
 
-include('templates/form/contact.form.phtml');
+<h1>Formulaire de contact</h1>
 
-$articles = getAllArticles($link, true, 5);
+<?php
+if (isset($missing_credential)) {
+    ?>
+    <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong> At least one field is empty, all fields are required.
+    </div>
+<?php
+}
+?>
 
-include('templates/_footer.phtml');
+<?php
+if (isset($send_successfully)) {
+    ?>
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong> Information successfully send to the webmaster.
+    </div>
+<?php
+}
+?>
 
-/** php.net - mysqli_close()
- * mysqli_close($link) ferme la connexion non persistante au serveur MySQL associée à l'identifiant spécifié. Si $link n'est pas spécifié, cette commande s'applique à la dernière connexion ouverte.
- * L'utilisation de mysqli_close() n'est pas habituellement nécessaire, puisque les connexions non persistantes ouverts sont automatiquement fermées à la fin l'exécution du script.
- */
-// Ferme la connexion à la base de donnée (libère de la ram (mémoire vive) sur le serveur). Non obligatoire 90% du temps, mais il faut prendre l'habitude de l'écrire.
-database_disconnect($link);
+<?php
+if (isset($send_error)) {
+    ?>
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error!</strong> Error with mail() function, the website is probably on localhost.
+    </div>
+<?php
+}
+?>
+
+<form id="contact_form" method="post">
+    <label for="name">Nom* :</label>
+        <input id="name" name="name" type="text" placeholder="Your name" value="<?php if (isset($_POST['name'])) { echo $_POST['name']; }?>" required="required" autofocus="on">
+    <br>
+    <label for="email">Email* :</label>
+        <input id="email" name="email" type="email" placeholder="Your email" value="<?php if (isset($_POST['email'])) { echo $_POST['email']; }?>" required="required">
+    <br>
+    <label for="message">Message* :</label>
+        <textarea id="message" name="message" placeholder="Your message" required="required"><?php if (isset($_POST['message'])) { echo $_POST['message']; }?></textarea>
+    <br>
+    <input class="btn btn-primary" name="contact_submit" type="submit" value="Send">
+</form>
+
+<?php
+
+include('_footer.php');

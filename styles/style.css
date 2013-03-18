@@ -1,60 +1,90 @@
+html,
 body {
-  font-family: 'Arial';
+    height: 100%;
 }
-nav > ul {
-  padding: 0;
-  height: 40px;
+body {
+    padding-top: 20px;
 }
-nav > ul > li {
-  display: inline-block;
-  float: left;
-  text-align: center;
-  width: 25%;
-  height: 40px;
-  background-color: lightblue;
+
+/* Custom container */
+.container {
+    margin: 0 auto;
+    max-width: 1000px;
 }
-nav > ul > li:hover {
-  background-color: dodgerblue;
+.container > hr {
+    margin: 60px 0;
 }
-nav > ul > li > a {
-  display: inline-block;
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    margin: 80px 0;
+    text-align: center;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
+.jumbotron h1 {
+    font-size: 100px;
+    line-height: 1;
 }
-table td,
-table th {
-  border: 1px solid black;
+.jumbotron .lead {
+    font-size: 24px;
+    line-height: 1.25;
 }
-table > tbody > tr:hover {
-  background-color: khaki;
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
 }
-table tr > td {
-  text-align: center;
+
+/* Supporting marketing content */
+.marketing {
+    margin: 60px 0;
 }
-article {
-  width: 100%;
+.marketing p + h4 {
+    margin-top: 28px;
 }
-article > h1 {
-  text-align: center;
+
+
+/* Customize the navbar links to be fill the entire space of the .navbar */
+.navbar .navbar-inner {
+    padding: 0;
 }
-article > p {
-  width: 70%;
-  margin: 0 15%;
+.navbar .nav {
+    margin: 0;
+    display: table;
+    width: 100%;
 }
-article > small {
-  display: inline-block;
-  width: 100%;
-  text-align: right;
+.navbar .nav li {
+    display: table-cell;
+    width: 1%;
+    float: none;
 }
-button.add {
-  float: right;
-  margin-bottom: 15px;
+.navbar .nav li a {
+    font-weight: bold;
+    text-align: center;
+    border-left: 1px solid rgba(255,255,255,.75);
+    border-right: 1px solid rgba(0,0,0,.1);
 }
-div.error {
-  color: red;
+.navbar .nav li:first-child a {
+    border-left: 0;
+    border-radius: 3px 0 0 3px;
+}
+.navbar .nav li:last-child a {
+    border-right: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+/* Customize homepage display articles */
+.row-fluid [class*="span"]:nth-child(3n-2) {
+    margin-left: 0;
+}
+.row-fluid [class*="span"] > h2 > a {
+    color: rgb(51, 51, 51);
+}
+.row-fluid [class*="span"] > h2 > a:hover {
+    color: #08c;
+    text-decoration: none;
+}
+.row-fluid article[class*="span"] {
+    min-height: 400px;
+}
+textarea {
+    width: 100%;min-height: 300px;
 }

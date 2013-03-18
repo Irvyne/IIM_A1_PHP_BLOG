@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Create the constant WEBDIR, for WAMP, MAMP and LAMP users
+ * It must be the name of the directory inside 'www' which hosting the project
+ */
+define('WEBDIR', '/IIM_A1_PHP_BLOG/');
+
 /**** WARNING ****
 MySQLi (MySQL Improved) = MySQL Amélioré
 MySQLi est une extension PHP qui permet de se connecter à une base de donnée
@@ -46,5 +52,3 @@ if ($_SERVER['SERVER_NAME'] != 'localhost') {
  	),
  );
  */
-
-define('WEBDIR', '/IIM_A1_PHP_BLOGNEWS/');

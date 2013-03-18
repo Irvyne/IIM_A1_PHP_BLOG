@@ -1,31 +1,14 @@
 <?php
 
-/** php.net - header()
- * Permet de spécifier l'en-tête HTTP 'string' lors de l'envoi des fichiers HTML
+include('../_header.php');
+
+/**
+ * Empêche l'accès aux personnes non identifiées
  */
-// Header PHP pour forcer l'encodage des caractères en "utf-8" : résoud les problèmes de caractères qui ne sont pas affichés correctement 
-header('Content-Type: text/html; charset=utf-8');
-
-/** php.net - require()
- * L'instruction de langage require inclut et exécute le fichier spécifié en argument.
- */
-// On récupère les informations de connection à notre base de donnée dans le tableau (array) $database
-require('../config/config.php');
-include('../functions/database.fn.php');
-include('../functions/article.fn.php');
-
-/**** WARNING ****
-MySQLi (MySQL Improved) = MySQL Amélioré
-MySQLi est une extension PHP qui permet de se connecter à une base de donnée
-Les fonctions commencant par "mysql_" vont être obsolètes, il vous faut donc utiliser les fonctions de MySQLi qui commencent par "mysqli_"
-Ne jamais utiliser de fonctions "mysql_" : attention aux sites web qui vous mettent du code obsolète !!
- **** WARNING ****/
-$link = database_connect($database);
-
-include('../templates/_header.phtml');
-include('../templates/_navbar.phtml');
-
-echo '<button class="add"><a href="'.WEBDIR.'admin/add.php">Ajouter un article +</a></button>';
+if (!isConnected()) {
+    header('Location: ../login.php');
+    die('Forbidden Area');
+}
 
 $articles = getAllArticles($link, false);
 
@@ -33,42 +16,53 @@ if (!$articles) {
     var_dump(mysqli_error($link));
 }
 
-echo '<table>';
-echo    '<thead>';
-echo        '<tr>';
-echo            '<th>Id</th>';
-echo            '<th>Titre</th>';
-echo            '<th>Contenu</th>';
-echo            '<th>Date</th>';
-echo            '<th>Enabled</th>';
-echo            '<th>Activer</th>';
-echo            '<th>Editer</th>';
-echo            '<th>Supprimer</th>';
-echo        '</tr>';
-echo    '</thead>';
-echo    '<tbody>';
+?>
+
+<p class="text-center" style="margin: 20px 0;">
+    <a class="btn btn-primary" href="<?=WEBDIR;?>admin/add.php">Ajouter un article +</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Contenu</th>
+            <th>Date</th>
+            <th>Enabled</th>
+            <th>Activer</th>
+            <th>Editer</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+
+<?php
 while ($article = mysqli_fetch_assoc($articles))
 {
-    echo '<tr>';
-    echo    '<td>'.$article['id'].'</td>';
-    echo    '<td>'.$article['title'].'</td>';
-    echo    '<td>'.$article['content'].'</td>';
-    echo    '<td>'.$article['date'].'</td>';
-    echo    '<td>'.$article['enabled'].'</td>';
-    $article['enabled'] == true ? $activate = 'Désactiver' : $activate = 'Activer';
-    echo    '<td><a href="'.WEBDIR.'admin/activate.php?id='.$article['id'].'">'.$activate.'</a></td>';
-    echo    '<td><a href="'.WEBDIR.'admin/edit.php?id='.$article['id'].'">Editer</a></td>';
-    echo    '<td><a href="'.WEBDIR.'admin/delete.php?id='.$article['id'].'">Supprimer</a></td>';
-    echo '</tr>';
+?>
+        <tr>
+            <td><a href="../article.php?id=<?= $article['id']; ?>" target="_blank"><?=$article['id'];?></a></td>
+            <td><?=getExcerpt($article['title'], 30);?></td>
+            <td><?=getExcerpt($article['content'], 100);?></td>
+            <td><?=$article['date'];?></td>
+            <?php if ($article['enabled'] == true) { ?>
+            <td><span class="label label-success">enabled</span></td>
+            <td><a href="<?=WEBDIR;?>admin/activate.php?id=<?=$article['id'];?>">Désactiver</a></td>
+            <?php } else { ?>
+            <td><span class="label label-important">disabled</span></td>
+            <td><a href="<?=WEBDIR;?>admin/activate.php?id=<?=$article['id'];?>">Activer</a></td>
+            <?php } ?>
+            <td><a href="<?=WEBDIR;?>admin/edit.php?id=<?=$article['id'];?>">Editer</a></td>
+            <td><a href="<?=WEBDIR;?>admin/delete.php?id=<?=$article['id'];?>">Supprimer</a></td>
+        </tr>
+<?php
 }
-echo    '</tbody>';
-echo '</table>';
+?>
 
-include('../templates/_footer.phtml');
+    </tbody>
+</table>
 
-/** php.net - mysqli_close()
- * mysqli_close($link) ferme la connexion non persistante au serveur MySQL associée à l'identifiant spécifié. Si $link n'est pas spécifié, cette commande s'applique à la dernière connexion ouverte.
- * L'utilisation de mysqli_close() n'est pas habituellement nécessaire, puisque les connexions non persistantes ouverts sont automatiquement fermées à la fin l'exécution du script.
- */
-// Ferme la connexion à la base de donnée (libère de la ram (mémoire vive) sur le serveur). Non obligatoire 90% du temps, mais il faut prendre l'habitude de l'écrire.
-database_disconnect($link);
+<?php
+
+include('../_footer.php');
