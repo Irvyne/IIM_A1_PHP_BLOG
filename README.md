@@ -6,9 +6,13 @@ Blog for IIM A1 Students
 
 ### What's inside:
 
- * Login area
+ * Login area (SHA1 for password)
  * CRUD (Create Read Update Delete) article
  * Contact Form
+
+### Default credentials
+ * 'admin' for username
+ * 'admin' for password
 
 ### Git
 
