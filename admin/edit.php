@@ -12,6 +12,21 @@ if (!isConnected()) {
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = $_GET['id'];
+
+    if (isset($_POST['article_submit'])) {
+        $title = $_POST['title'];
+        $content = $_POST['content'];
+
+        $article = array(
+            'id'        => $id,
+            'title'     => $title,
+            'content'   => $content,
+        );
+
+        updateArticle($link, $article);
+
+        header('Location: index.php');
+    }
 } else {
     header('Location: index.php');
 }
