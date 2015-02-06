@@ -50,7 +50,7 @@ function addArticle($link, array $article) {
     } else {
         $enabled = false;
     }
-    $sql = "INSERT INTO article (`id`, `title`, `content`, `date`, `enabled`) VALUES (NULL, '$title', '$content', NULL, '$enabled')";
+    $sql = "INSERT INTO article (`id`, `title`, `content`, `enabled`) VALUES (NULL, '$title', '$content', '$enabled')";
 	$result = mysqli_query($link, $sql);
 	if ($result)
 		return $result;
